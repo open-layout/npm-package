@@ -10,6 +10,10 @@
     "build": "NODE_ENV=production tsc",
     "version": "npm version"
   },
+  "bin": {
+    "open-layout": "dist/index.js",
+    "olayout": "dist/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/open-layout/npm-package.git"
