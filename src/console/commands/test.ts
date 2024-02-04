@@ -1,11 +1,13 @@
 import * as cli from '../cli';
 
-exports.default = {
+const Command = {
     name: "Test",
-    executors: ["test", "--test"],
+    executors: ["test"],
     usage: "test",
     description: "Im just a test command",
     run: async function(args: string[]) {
-       cli.dcout(100, 'Consider yourself tested :D')
+       cli.dcout(50, 'Consider yourself tested :D')
     }
 }
+
+export default Command;

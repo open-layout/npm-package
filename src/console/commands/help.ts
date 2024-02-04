@@ -1,17 +1,16 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import kleur from 'kleur';
+// @ts-ignore, needed bc enquirer doesnt export them
+import { Select, prompt } from 'enquirer';
 
 import * as cli from '../cli';
 import { commands } from '../cli-commands';
 import * as menus from '../cli-menus';
-// @ts-ignore, needed bc enquirer doesnt export them
-import { Select, prompt } from 'enquirer';
 
-
-exports.default = {
+const Command = {
     name: "Help",
-    executors: ["help", "halp", "--help", "--h"],
+    executors: ["help", "halp", "h"],
     usage: "help",
     description: "Shows description for all commands",
     run: async function(args: string[]) {
@@ -57,7 +56,9 @@ exports.default = {
     
             selectedCommand.run(args);
         } else {
-            console.log('Invalid command selected.');
+            cli.cout('Invalid command selected.');
         }
     }
 }
+
+export default Command;
