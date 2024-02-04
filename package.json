@@ -1,20 +1,20 @@
 {
   "name": "open-layout",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "OpenLayout npm package to easily create your projects based on a public template.",
-  "main": "./dist/index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=production tsc && node ./dist/index.js",
-    "just-start": "cross-env NODE_ENV=production node ./dist/index.js",
-    "jsd": "cross-env NODE_ENV=development node ./dist/index.js",
+    "start": "cross-env NODE_ENV=production tsc && node build/index.js",
+    "just-start": "cross-env NODE_ENV=production node build/index.js",
+    "jsd": "cross-env NODE_ENV=development node build/index.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec ts-node ./src/index.ts",
     "build": "cross-env NODE_ENV=production tsc",
     "version": "npm version"
   },
   "bin": {
-    "open-layout": "dist/index.js",
-    "olayout": "dist/index.js"
+    "open-layout": "build/index.js",
+    "olayout": "build/index.js"
   },
   "repository": {
     "type": "git",
@@ -25,8 +25,11 @@
     "templates",
     "npm-package"
   ],
-  "author": "imxnoobx, azaldevx, anglesad",
-  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=16"
+  },
+  "author": "IMXNOOBX",
+  "license": "CC-BY-NC-4.0",
   "bugs": {
     "url": "https://github.com/open-layout/npm-package/issues"
   },

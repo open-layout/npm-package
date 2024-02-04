@@ -14,7 +14,7 @@ export const commands: Command[] = [];
 
 export function parse(args: string[]): void { 
 	std.pcout('DEBUG', `Parsing ${args.length} command line parameters: ${args.join(', ')}`)
-	const command_name = args[0];
+	const command_name = args[0].replace('--', ''); // Parse command name from args
 	const command = commands.find((cmd) => cmd.executors.includes(command_name));
   
 	if (command) {
