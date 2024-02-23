@@ -4,7 +4,7 @@ import * as cp from 'child_process';
 import { Confirm } from 'enquirer';
 
 import * as cli from '../cli';
-import globals from '../../globals/globals'
+import { Globals } from '../../globals/globals'
 
 const Command = {
     name: "Project",
@@ -12,10 +12,11 @@ const Command = {
     usage: "project",
     description: "Open the github organization page, and description of this project",
     run: async function(args: string[]) {
-        const name = globals.package?.name || 'open-layout';
-        const version = globals.package?.version || '0.0.0';
-        const description = globals.package?.description || 'Failed to get description';
-        const github_url = globals.package?.homepage || 'Failed to get homepage';
+        const pkg = Globals.package();
+        const name = pkg.name || 'open-layout';
+        const version = pkg.version || '0.0.0';
+        const description = pkg.description || 'Failed to get description';
+        const github_url = pkg.homepage || 'Failed to get homepage';
         const github_org = `https://github.com/${name}`;
         
         var start = (process.platform == 'darwin' ? 'open': process.platform == 'win32' ? 'start': 'xdg-open');
