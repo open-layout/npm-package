@@ -68,9 +68,12 @@ class Menu {
 			margin: [0, 0, 0, 2],
 			choices: [
 				{ message: 'Explore layouts\n', name: 'explore' },
+				{ message: 'Show help', name: 'show_help', disable: true },
+
 				// { message: 'a', name: 'a', value: 'a', disabled: true },
 				{ message: 'Open website', name: 'open_site' },
 				{ message: 'Open repository', name: 'open_repository' },
+				{ message: 'Quit', name: 'quit' }
 			  ]
 		});
 		

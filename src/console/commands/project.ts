@@ -5,6 +5,7 @@ import { Confirm } from 'enquirer';
 
 import * as cli from '../cli';
 import { Globals } from '../../globals/globals'
+import { open } from '../../globals/utilities';
 
 const Command = {
     name: "Project",
@@ -39,7 +40,7 @@ const Command = {
         });
           
         prompt.run()
-            .then((answer: any) => { if (answer) cp.exec(`${start} ${github_org}`) });
+            .then((answer: any) => { if (answer) open(github_org) });
     }
 }
 
