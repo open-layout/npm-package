@@ -1,25 +1,21 @@
-interface Globals {
-    system: string;
-    package: {
-        name: string;
-        version: string;
-        description: string;
-        homepage: string;
-        // Add other properties if needed
-    } | null;
-    api_url: string;
+import { get_package } from './utilities';
+
+class Globals {
+	// Class properties
+	private static _package: object | any;
+
+	// Class methods
+	/**
+	 * package()
+	 * @returns {object} With the package informatio
+	 */
+	static package() {
+		if (!this._package)
+			this._package = get_package();
+
+		return this._package;
+	}
+
 }
 
-const globals: Globals  = {
-	system: String(),
-	package:  null,
-	api_url: process.env.API_URL || 'https://api.openlayout.me',
-};
-
-export function get_package() {
-	const path = process.env.npm_package_json
-	if (path) 
-		return globals.package = require(path)
-}
-
-export default globals;
+export { Globals };

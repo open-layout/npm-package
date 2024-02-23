@@ -35,7 +35,7 @@ export function pcout(prefix: string, text: string): void {
 			break;
 	}
 	const str = kleur.bold(`${prefix} ${kleur.white().italic(text)}`)
-	console.log(str)
+	cout(str)
 }
 
 export function clear(): void {

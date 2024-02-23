@@ -5,8 +5,8 @@ import kleur from 'kleur';
 import { Select, prompt } from 'enquirer';
 
 import * as cli from '../cli';
-import { commands } from '../cli-commands';
-import * as menus from '../cli-menus';
+import { commands } from '../commands';
+import { Menu } from '../menus';
 
 const Command = {
     name: "Help",
@@ -28,7 +28,7 @@ const Command = {
             
         }
 
-        menus.logo();
+        Menu.logo();
 
         const prompt_select = new Select({
             name: 'command',
