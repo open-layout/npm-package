@@ -31,7 +31,6 @@ const Command = {
         cli.cout(' • Github Repository: ' + kleur.bold().underline().gray(github_url));
         cli.cout();
 
-
         const prompt = new Confirm({
             type: 'confirm',
             name: 'question',

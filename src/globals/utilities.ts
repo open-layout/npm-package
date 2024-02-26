@@ -13,6 +13,11 @@ const get_package = (): any | object => {
 	return { };
 }
 
+/**
+ * Open a URL in the default browser
+ * @param url The URL to open 
+ * @returns {Promise<string>} The result of the command
+ */
 const open = async (url: string): Promise<string> => {
     if (!url) 
         throw new Error('No URL provided to open');
@@ -34,4 +39,11 @@ const open = async (url: string): Promise<string> => {
     });
 }
 
-export { get_package, open };
+/**
+ * Sleep for a given amount of time
+ * @param ms The time to sleep in milliseconds
+ * @returns {Promise<void>} A promise that resolves after the given time
+ */
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+export { get_package, open, sleep };

@@ -5,7 +5,8 @@
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=production tsc && node build/index.js",
+    "start": "tsc && cross-env NODE_ENV=production node build/index.js",
+    "startd": "tsc && cross-env NODE_ENV=development node build/index.js",
     "just-start": "cross-env NODE_ENV=production node build/index.js",
     "jsd": "cross-env NODE_ENV=development node build/index.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec ts-node ./src/index.ts",

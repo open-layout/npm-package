@@ -32,4 +32,19 @@ cmd.load_commands();
 if (args.length !== 0) 
 	process.exit(cmd.parse(args));
 
+process.on('SIGINT', () => { 
+	std.pcout('DEBUG', 'Received SIGINT, exiting...');
+	process.exit(0);
+});
+
+process.on('SIGTERM', () => {
+	std.pcout('DEBUG', 'Received SIGTERM, exiting...');
+	process.exit(0);
+});
+
+process.on('uncaughtException', (err) => {
+	std.pcout('DEBUG', `Uncaught Exception: ${err}`);
+	process.exit(1);
+});
+
 Menu.render();
