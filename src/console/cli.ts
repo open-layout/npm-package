@@ -12,9 +12,10 @@ export function dcout(delay: number, text: string): void {
 }
 
 export function pcout(prefix: string, text: string): void {
+	prefix = prefix.toLowerCase();
 	if (
 		process.env.NODE_ENV !== "development" &&
-		prefix.toLowerCase() === "debug"
+		prefix === "debug" || prefix === "errord"
 		) return;
 
 	switch (prefix.toLowerCase()) {
@@ -36,6 +37,11 @@ export function pcout(prefix: string, text: string): void {
 	}
 	const str = kleur.bold(`${prefix} ${kleur.white().italic(text)}`)
 	cout(str)
+}
+
+export function clear_lines(num: number = 1): void {
+	for (let i = 0; i < num; i++) 
+        process.stdout.write('\u001b[1A\u001b[2K');
 }
 
 export function clear(): void {
