@@ -4,12 +4,14 @@ import * as cli from './cli';
 import { createSpinner } from 'nanospinner';
 
 // @ts-ignore
-import { Select } from 'enquirer';
+import { Select, AutoComplete, Input } from 'enquirer';
 import { open, sleep } from '../globals/utilities';
 import { Globals } from '../globals/globals'
 import config from '../globals/config';
-import { get_layouts } from '../ol/layouts';
+import { get_explore, get_find, get_stats } from '../ol/layouts';
 import Help from './commands/help';
+import { explore_action } from './menus/explore';
+import { search_action } from './menus/search';
 
 class Menu {
 	private static render_header(): void {
@@ -59,9 +61,14 @@ class Menu {
 		cli.clear();
 
 		Menu.logo();
-		cli.cout(kleur.bold().white(`Welcome to Open Layout (${pkg.version || '0.0.0'})!`));
 
-		for (let i = 0; i < 3; i++)
+		const stats = await get_stats();
+
+		cli.cout(kleur.italic().gray('Welcome to'), kleur.bold().white('Open Layout'), kleur.italic().gray(`(${pkg.version || '0.0.0'})!`));
+		cli.cout(kleur.italic().gray('Explore'), kleur.bold().white(stats.layouts?.ammount || '∞'), kleur.italic().gray('awesome layouts!'));
+		cli.cout(kleur.italic().gray('Become one of our'), kleur.bold().white(stats.users?.ammount || '∞'), kleur.italic().gray('users!'));
+
+		for (let i = 0; i < 2; i++)
 			cli.cout();
 
 		const prompt = new Select({
@@ -71,7 +78,7 @@ class Menu {
 			choices: [
 				{ message: 'Explore layouts', name: 'explore' },
 				{ message: 'Search layouts\n', name: 'search' },
-				{ message: 'Show help', name: 'show_help', disable: true },
+				{ message: 'Show help', name: 'show_help', disabled: true },
 
 				// { message: 'a', name: 'a', value: 'a', disabled: true },
 				{ message: 'Open website', name: 'open_site' },
@@ -83,84 +90,12 @@ class Menu {
 		const result = await prompt.run(); // Handled with uncaughtException
 		switch (result) {
 			case 'explore':
-				const msg = kleur.bold(' • Searching new layouts...');
-				const spinner = createSpinner(msg).start();
-
-				const explore = await get_layouts();
-
-				if (explore.length === 0) spinner.error(); else spinner.success();
-				if (explore.length === 0) 
-					return cli.cout(kleur.italic('No layouts found!'));
-
-				const select_layout = new Select({
-					name: 'layout',
-					message: 'Choose a layout:',
-					limit: 5,
-					margin: [0, 0, 0, 2],
-					choices: explore.map(layout => ({
-						message: `${kleur.bold(layout.name)}\n • Description: ${kleur.gray(layout.description)}`,
-						name: layout.name
-					})),
-				});
-
-				const res = await select_layout.run().catch(()=>{});
-
-				const layout = explore.find(layout => layout.name === res);
-
-				if (!layout) { cli.cout(kleur.red('Failed to find layout!')); await sleep(1000); break; }
-
-				const choices = [];
-				{
-					choices.push('Open in OL');
-					if (layout.website) choices.push('Open Preview');
-					if (layout.repository) choices.push('Open Repository');
-					if (layout.demo) choices.push('Open Demo');
-					choices.push('Quick Install');
-					choices.push('Back');
-				}
-
-				const action = new Select({
-					name: 'Layout',
-					margin: [0, 0, 0, 2],
-					message: `Pick an action to do with (${layout.name}):`,
-					choices: choices
-				});
-
-				const action_res = await action.run().catch(()=>{});
-
-				switch (action_res) {
-					case 'Open in OL':
-						await open(config.website + '/layouts/' + layout.name || '').catch(console.error);
-						break;
-					case 'Open Website':
-						await open(layout.website || '').catch(console.error);
-						break;
-					case 'Open Repository':
-						await open(layout.repository || '').catch(console.error);
-						break;
-					case 'Quick Install':
-						const install = new Select({
-							name: 'install',
-							message: 'Install this layout?',
-							choices: ['Yes', 'No']
-						});
-
-						const install_res = await install.run();
-
-						if (install_res === 'Yes') {
-							const msg = kleur.bold(' • Installing layout ') + kleur.gray(layout.name);
-							const spinner = createSpinner(msg).start();
-
-							await open(layout.repository || '').catch(console.error);
-							spinner.success();
-						}
-						break;
-					default:
-						cli.cout(kleur.red('No action selected!'));
-						break;
-				}
-
-				cli.pcout('DEBUG', `Action result: ${action_res}`);
+				cli.pcout('DEBUG', `Executing explore_action...`);
+				await explore_action()
+				break;
+			case 'search': 
+				cli.pcout('DEBUG', `Executing explore_action...`);
+				await search_action();
 				break;
 			case 'show_help': {
 				cli.clear();
