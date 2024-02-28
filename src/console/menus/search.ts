@@ -44,6 +44,8 @@ const search_action = async (): Promise<void> => {
         return await search_action()
     }
 
+    cli.clear_lines(2);
+
     const select_layout = new Select({
         name: 'layout',
         message: 'Choose a layout:',
