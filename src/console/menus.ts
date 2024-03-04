@@ -117,7 +117,7 @@ class Menu {
 				}
 				break;
 			case 'quit': {
-					cli.cout(kleur.green().italic('Bye!'))
+					cli.cout(kleur.green().italic('Bye! 👋'))
 					process.exit(0)
 				}
 				break;
@@ -126,7 +126,7 @@ class Menu {
 				break;
 		}
 
-		await sleep(2000);
+		await sleep(1000);
 
 		Menu.render();
 	}

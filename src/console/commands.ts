@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as std from './cli'
+import kleur from 'kleur';
 
 interface Command {
 	name: string;
@@ -12,16 +13,16 @@ interface Command {
 
 const commands: Command[] = [];
 
-const parse = (args: string[]): number => {
-	std.pcout('DEBUG', `Parsing ${args.length} command line parameters: ${args.join(', ')}`)
+const parse = async (args: string[]): Promise<number> => {
+	std.pcout('DEBUG', `${kleur.gray('Parsing')} ${args.length} ${kleur.gray('command line parameters')}: ${args.join(', ')}`)
 	const command_name = args[0].replace('--', '');
 	const command = commands.find((cmd) => cmd.executors.includes(command_name));
 
 	if (command) {
 		const commandArgs = args.slice(1);
-		command.run(commandArgs);
+		await command.run(commandArgs);
 	} else 
-		std.pcout('ERROR', `Command not found: ${command_name}`);
+		std.pcout('ERROR', `${kleur.gray('Command not found')}: ${command_name}`);
 
 	return command ? 0 : 1;
 }
@@ -52,13 +53,13 @@ const load_commands = () => {
 
 			if (validate_command(commandModule)) {
 				commands.push(commandModule);
-				std.pcout('DEBUG', `Parsing command file: ${file}`);
+				std.pcout('DEBUG', `${kleur.gray('Parsing command file')}: ${file}`);
 			} else {
-				std.pcout('ERROR', `Invalid command module in file: ${file}`);
+				std.pcout('ERROR', `${kleur.gray('Invalid command module in file')}: ${file}`);
 			}
 		}
 	});
-	std.pcout('DEBUG', `Parsed a total of (${commands.length}) commands.`);
+	std.pcout('DEBUG', `${kleur.gray('Parsed a total of')} (${commands.length}) ${kleur.gray('commands')}.`);
 }
 
 export { commands, parse, load_commands }
