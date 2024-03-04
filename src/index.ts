@@ -6,8 +6,9 @@ import * as std from './console/cli'
 import { Menu } from './console/menus'
 import * as cmd from './console/commands'
 import * as globals from './globals/globals'
+import { sleep } from 'globals/utilities';
 
-let args = process.argv.slice(2); // Set it to const, i just change it to test commandline args
+let args: string[] = process.argv.slice(2); // Set it to const, i just change it to test commandline args
 const platform = os.platform();
 
 std.pcout('DEBUG', `Package version ${process.env.npm_package_version}.`);
@@ -27,10 +28,7 @@ if (!(require('color-support').level > 0)) {
 */
 cmd.load_commands();
 
-// args = ['--h']
-
-if (args.length !== 0) 
-	process.exit(cmd.parse(args));
+// args = ['get'];
 
 process.on('SIGINT', () => { 
 	std.pcout('DEBUG', 'Received SIGINT, exiting...');
@@ -47,4 +45,7 @@ process.on('uncaughtException', (err) => {
 	process.exit(1);
 });
 
-Menu.render();
+if (args.length !== 0) 
+	cmd.parse(args).then((code) => process.exit(code));
+else
+	Menu.render();

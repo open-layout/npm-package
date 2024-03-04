@@ -20,19 +20,19 @@ export function pcout(prefix: string, text: string): void {
 
 	switch (prefix.toLowerCase()) {
 		case "info":
-			prefix = kleur.white().bgBlue(`[${prefix}]`)
+			prefix = kleur.bgBlue().white(`[${prefix}]`)
 			break;
 		case "debug":
-			prefix = kleur.white().bgCyan(`[${prefix}]`)
+			prefix = kleur.bgCyan().white(`[${prefix}]`)
 			break;
 		case "warn":
-			prefix = kleur.white().bgYellow(`[${prefix}]`)
+			prefix = kleur.bgYellow().white(`[${prefix}]`)
 			break;
 		case "error":
-			prefix = kleur.white().bgRed(`[${prefix}]`)
+			prefix = kleur.bgRed().white(`[${prefix}]`)
 			break;
 		default:
-			prefix = kleur.black().bgWhite(`[${prefix}]`)
+			prefix = kleur.bgWhite().black(`[${prefix}]`)
 			break;
 	}
 	const str = kleur.bold(`${prefix} ${kleur.white().italic(text)}`)

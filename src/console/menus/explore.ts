@@ -39,6 +39,8 @@ const explore_action = async (): Promise<void> => {
         return cli.cout(kleur.red('Failed to find layout!')); 
 
     await layout_action(layout.name);
+
+    await explore_action();
 }
 
 
