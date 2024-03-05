@@ -12,6 +12,7 @@ import { get_explore, get_find, get_stats } from '../ol/layouts';
 import Help from './commands/help';
 import { explore_action } from './menus/explore';
 import { search_action } from './menus/search';
+import { create_layout_action } from './menus/create_layout';
 
 class Menu {
 	private static render_header(): void {
@@ -78,9 +79,9 @@ class Menu {
 			choices: [
 				{ message: 'Explore layouts', name: 'explore' },
 				{ message: 'Search layouts\n', name: 'search' },
-				{ message: 'Show help', name: 'show_help', disabled: true },
+				{ message: 'Create a layout', name: 'create_layout', disabled: false },
 
-				// { message: 'a', name: 'a', value: 'a', disabled: true },
+				{ message: 'Show help', name: 'show_help', disabled: false },
 				{ message: 'Open website', name: 'open_site' },
 				{ message: 'Open repository', name: 'open_repository' },
 				{ message: 'Quit', name: 'quit' }
@@ -94,9 +95,14 @@ class Menu {
 				await explore_action()
 				break;
 			case 'search': 
-				cli.pcout('DEBUG', `Executing explore_action...`);
+				cli.pcout('DEBUG', `Executing search_action...`);
 				await search_action();
 				break;
+			case 'create_layout': {
+				cli.pcout('DEBUG', `Executing create_layout_action...`);
+				await create_layout_action();
+				break;
+			}
 			case 'show_help': {
 				cli.clear();
 				await Help.run([]);

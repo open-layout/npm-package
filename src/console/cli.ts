@@ -1,4 +1,5 @@
 import kleur from 'kleur';
+import readlineSync from 'readline-sync';
 
 export function cout(...text: string[]): void {
 	console.log(...text)
@@ -46,4 +47,11 @@ export function clear_lines(num: number = 1): void {
 
 export function clear(): void {
 	process.stdout.write('\u001B[2J\u001B[0;0f');
+}
+
+export function cin(message: string = ''): string {
+	if (!message)
+		readlineSync.keyInPause(message);
+	
+	return readlineSync.question(message);
 }
