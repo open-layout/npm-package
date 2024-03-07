@@ -7,6 +7,9 @@ import { exec } from 'shelljs';
  */
 const get_package = (): any | object => {
     const path = process.env.npm_package_json
+
+    console.log('Path:', path);
+
     if (path) 
         return require(path)
 

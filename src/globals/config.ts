@@ -1,4 +1,8 @@
 export default {
+    name: 'open-layout',
+    version: '0.0.0',
+    description: 'Open Layout CLI',
+
     website: 'https://openlayout.me',
     api: 'https://api.openlayout.me/v0',
     headers: { 'x-ol-client': 'open-layout-npm-client' },

@@ -8,7 +8,8 @@ import * as std from './console/cli'
 import { Menu } from './console/menus'
 import * as cmd from './console/commands'
 import * as globals from './globals/globals'
-import { sleep } from 'globals/utilities';
+import config from './globals/config';
+import { sleep } from './globals/utilities';
 
 let args: string[] = process.argv.slice(2); // Set it to const, i just change it to test commandline args
 const platform = os.platform();

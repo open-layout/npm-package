@@ -8,7 +8,7 @@
     "start": "tsc && cross-env NODE_ENV=production node build/index.js",
     "startd": "tsc && cross-env NODE_ENV=development node build/index.js",
     "just-start": "cross-env NODE_ENV=production node build/index.js",
-    "jsd": "cross-env NODE_ENV=development node build/index.js",
+    "just-start-dev": "cross-env NODE_ENV=development node build/index.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec ts-node ./src/index.ts",
     "build": "cross-env NODE_ENV=production tsc",
     "version": "npm version"
@@ -43,7 +43,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.2"
   },
   "dependencies": {
