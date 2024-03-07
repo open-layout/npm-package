@@ -1,6 +1,6 @@
 {
   "name": "open-layout",
-  "version": "1.2.1-beta",
+  "version": "1.2.1-beta.1",
   "description": "OpenLayout npm package to easily create your projects based on a public templates made by the comunity.",
   "main": "build/index.js",
   "scripts": {
@@ -15,7 +15,8 @@
   },
   "bin": {
     "open-layout": "./build/index.js",
-    "olayout": "./build/index.js"
+    "olayout": "./build/index.js",
+    "ol": "./build/index.js"
   },
   "repository": {
     "type": "git",
