@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import kleur from 'kleur';
 import * as os from 'os';
 import readline from 'readline';

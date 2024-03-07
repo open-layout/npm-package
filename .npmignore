@@ -1,3 +1,8 @@
+# Custom
+.github/
+src/
+
+
 # Logs
 logs
 *.log

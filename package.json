@@ -14,8 +14,8 @@
     "version": "npm version"
   },
   "bin": {
-    "open-layout": "build/index.js",
-    "olayout": "build/index.js"
+    "open-layout": "./build/index.js",
+    "olayout": "./build/index.js"
   },
   "repository": {
     "type": "git",
