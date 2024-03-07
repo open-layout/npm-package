@@ -1,6 +1,6 @@
 {
   "name": "open-layout",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "OpenLayout npm package to easily create your projects based on a public templates made by the comunity.",
   "main": "build/index.js",
   "scripts": {
