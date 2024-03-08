@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { exec } from 'shelljs';
 
 
@@ -6,14 +7,32 @@ import { exec } from 'shelljs';
  * @returns {any | object} The package information
  */
 const get_package = (): any | object => {
-    const path = process.env.npm_package_json
+    try {
+        const path = process.env.npm_package_json
+        
+        if (path) 
+            return require(path)
 
-    console.log('Path:', path);
+        const file = fs.readFileSync(__dirname + '/../../package.json', 'utf8');
 
-    if (path) 
-        return require(path)
+        if (file) 
+            return JSON.parse(file);
+    } catch (e) { 
+        return {}; 
+    }
 
 	return { };
+}
+
+const get_latest_version = async (package_name: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        exec(`npm show ${package_name} version`, { silent: true },  (code, stdout, stderr) => {
+            if (code !== 0) 
+                resolve('');
+
+            resolve(stdout.replace('\n', ''));
+        });
+    })
 }
 
 /**
@@ -49,4 +68,4 @@ const open = async (target: string): Promise<string> => {
  */
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-export { get_package, open, sleep };
+export { get_package, get_latest_version, open, sleep };
