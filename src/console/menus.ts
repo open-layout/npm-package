@@ -1,11 +1,13 @@
 import kleur from 'kleur';
 import figlet from 'figlet';
 import * as cli from './cli';
+import clipboard from 'copy-paste';
 import { createSpinner } from 'nanospinner';
+
 
 // @ts-ignore
 import { Select, AutoComplete, Input } from 'enquirer';
-import { open, sleep } from '../globals/utilities';
+import { open, sleep, get_latest_version } from '../globals/utilities';
 import { Globals } from '../globals/globals'
 import config from '../globals/config';
 import { get_explore, get_find, get_stats } from '../ol/layouts';
@@ -46,7 +48,7 @@ class Menu {
 		const pkg = Globals.package();
 
 		const width = process.stdout.columns
-		const logo =  figlet.textSync(pkg.name, {
+		const logo =  figlet.textSync(pkg.name || config.name, {
 			font: (width > 120) ? "Univers" : (width > 80) ? "Kban" : "Small",
 			horizontalLayout: "full",
 			verticalLayout: "fitted",
@@ -63,13 +65,25 @@ class Menu {
 
 		Menu.logo();
 
+		const msg = kleur.bold().gray(' • Getting stats & Checking for updates...');
+		const spinner = createSpinner(msg).start();
+
 		const stats = await get_stats();
+		const latest_ver = await get_latest_version(pkg.name || config.name);
+
+		spinner.success(); cli.clear_lines(1);
+
+		if (latest_ver && latest_ver !== pkg.version) {
+			cli.cout(kleur.bold().yellow(` • New version available: `) + kleur.italic(latest_ver) + kleur.italic().cyan(' (npm update -g ' + (pkg.name || config.name) + ')'));
+			cli.cout(kleur.gray().italic('The command has been copied to your clipboard. paste it in your terminal to update.\n'));
+			clipboard.copy(`npm update -g ${pkg.name || config.name}`);
+		}
 
 		cli.cout(kleur.italic().gray('Welcome to'), kleur.bold().white('Open Layout'), kleur.italic().gray(`(${pkg.version || '0.0.0'})!`));
 		cli.cout(kleur.italic().gray('Explore'), kleur.bold().white(stats.layouts?.ammount || '∞'), kleur.italic().gray('awesome layouts!'));
 		cli.cout(kleur.italic().gray('Become one of our'), kleur.bold().white(stats.users?.ammount || '∞'), kleur.italic().gray('users!'));
 
-		for (let i = 0; i < 2; i++)
+		for (let i = 0; i < 1; i++)
 			cli.cout();
 
 		const prompt = new Select({
